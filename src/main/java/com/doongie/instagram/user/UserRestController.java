@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +37,20 @@ public class UserRestController {
 			resultMap.put("result", "fail");
 		}
 		
+		return resultMap;
+		
+	}
+	
+	
+	@GetMapping("/duplicate_id")
+	public Map<String, Boolean> isDuplicateId(@RequestParam("loginId") String loginId) {
+		
+		boolean isDuplicate = userBO.isDuplicateId(loginId);
+		
+		Map<String, Boolean> resultMap = new HashMap<>();
+		
+		resultMap.put("is_duplicate", isDuplicate);
+			
 		return resultMap;
 		
 	}

@@ -54,6 +54,39 @@
 	<script>
 		$(document).ready(function(){
 			
+			$("#doubleBtn").on("click", function(){
+				
+				let loginId = $("#loginIdInput").val();	
+				if(loginId == ""){
+					alert("id를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					
+					type:"get"
+					, url:"/user/duplicate_id"
+					, data:{"loginId":loginId}
+					, success:function(data){
+						if(data.is_duplicate){
+							alert("중복된 ID");
+						} else {
+							alert("사용가능한 ID");
+						}
+					}
+					, error:function(){
+						alert("중복확인 에러");
+					}
+					
+				});
+				
+				
+
+				
+			});
+			
+			
+			
 			$("#joinBtn").on("click", function(){
 				
 				let loginId = $("#loginIdInput").val();		
@@ -94,7 +127,7 @@
 				}
 				
 				
-				.ajax({
+				$.ajax({
 					
 					type:"post"
 						, url:"/user/signup"
