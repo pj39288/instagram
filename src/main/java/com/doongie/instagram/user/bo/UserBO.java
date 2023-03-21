@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.doongie.instagram.common.EncryptService;
 import com.doongie.instagram.user.dao.UserDAO;
+import com.doongie.instagram.user.model.User;
 
 @Service
 public class UserBO {
@@ -29,6 +30,13 @@ public class UserBO {
 		} else {
 			return true;
 		}
+	}
+	
+	public User getUser(String loginId, String password) {
+		
+		String encryptPassword = EncryptService.md5(password);
+		
+		return userDAO.selectUser(loginId, encryptPassword);
 	}
 
 }
