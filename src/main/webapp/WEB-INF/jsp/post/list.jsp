@@ -14,14 +14,114 @@
 
 <link rel="stylesheet" href="/static/css/style.css" type="text/css">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+
+
 </head>
 <body>
-	<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
 
-	<h1>게시물 리스트</h1>
+	<div id="wrap"> 
+		<c:import url="/WEB-INF/jsp/include/header.jsp"></c:import>
+		
+		<section class="contents d-felx justify-content-center">
 	
-	<c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>
+			
+			<%-- content 입력화면 --%>
+			<div class="input-box">		
+				<textarea id="contentInput" rows="4" class="form-control"></textarea>	
+				<div class="d-flex justify-content-between">
+					<input type="file">
+					<button type="button" id="inputBtn">업로드</button>				
+				</div>
+			</div>
+			
+			<%-- 게시물 리스트 --%>
+			<div class="card-list">
+			
+				<%-- 게시물 하나 --%>
+				<div class="card">
+					<div class="d-flex justify-content-between">
+						<div>doongie</div>
+						<i class="bi bi-three-dots"></i>
+					</div>
+					
+					<div>
+						<img width="100%" src="https://cdn.pixabay.com/photo/2023/03/07/18/08/tulips-7836232_960_720.png">
+					</div>
+					
+					<div>
+						<i class="bi bi-suit-heart"></i> 좋아요 n개
+					</div>
+					
+					<div>
+						<b>doongie</b> 꽃 사진이 너무 예뻐요!!!
+					</div>
+					
+					<!-- 댓글 박스 -->
+					<div>
+						<div>댓글</div>
+						
+						<div><b>hagulu</b>진짜 이쁘네</div>
+						<div><b>oss</b>뭐해</div>
+						
+						<div class="d-flex">
+							<input type="text" class="form-control">
+							<button type="button">게시</button>
+						</div>
+						
+					</div>
+				
+				</div>
+			
+			</div>
+		
+		
+		</section>
+		
+		
+		
+		<c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>	
+	</div>
 	
+	<script>
+		$(document).ready(function(){
+			
+			$("#inputBtn").on("click", function(){
+				
+				let content = $("#contentInput").val();
+
+				if(content == ""){
+					alert("내용을 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					
+					type:"get"
+					, url:"/post/create"
+					, data:{"content":content}
+					, success:function(data){
+						if(data.result == "success"){
+							location.href="/post/list/view"
+						} else {
+							alert("내용 입력을 확인하세요");
+						}
+					}
+					, error:function(){
+						alert("게시 에러")
+					}
+					
+					
+				});
+				
+			});
+			
+		});
+	
+	
+	
+	</script>
 
 </body>
 </html>
