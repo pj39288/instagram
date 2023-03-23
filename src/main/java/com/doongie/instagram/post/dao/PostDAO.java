@@ -10,7 +10,10 @@ import com.doongie.instagram.post.model.Post;
 @Repository
 public interface PostDAO {
 	
-	public int insertPost(@Param("userId") int userId, @Param("content") String content);
+	public int insertPost(
+			@Param("userId") int userId
+			, @Param("content") String content
+			, @Param("imagePath") String imagePath);
 	
-	public List<Post> selectAllPost();
+	public List<Post> selectPostList();
 }

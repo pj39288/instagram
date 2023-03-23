@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.doongie.instagram.common.FileManagerService;
 import com.doongie.instagram.post.dao.PostDAO;
 import com.doongie.instagram.post.model.Post;
 
@@ -14,15 +16,20 @@ public class PostBO {
 	@Autowired
 	private PostDAO postDAO;
 	
-	public int addPost(int userId, String content) {
+	public int addPost(
+			int userId
+			, String content
+			, MultipartFile file) {
 		
-		return postDAO.insertPost(userId, content);
+		String imagePath = FileManagerService.saveFile(userId, file);
+		
+		return postDAO.insertPost(userId, content, imagePath);
 		
 	}
 	
-	public List<Post> getPost() {
+	public List<Post> getPostList() {
 		
-		return postDAO.selectAllPost();
+		return postDAO.selectPostList();
 	}
 
 }

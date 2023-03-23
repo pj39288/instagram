@@ -31,13 +31,17 @@
 			<div class="input-box">		
 				<textarea id="contentInput" rows="4" class="form-control"></textarea>	
 				<div class="d-flex justify-content-between">
-					<input type="file">
+					<input type="file" id="fileInput">
 					<button type="button" id="inputBtn">업로드</button>				
 				</div>
 			</div>
 			
+			
+			
 			<%-- 게시물 리스트 --%>
 			<div class="card-list">
+			
+			<c:forEach var="post" items="${postList }">
 			
 				<%-- 게시물 하나 --%>
 				<div class="card">
@@ -47,7 +51,7 @@
 					</div>
 					
 					<div>
-						<img width="100%" src="https://cdn.pixabay.com/photo/2023/03/07/18/08/tulips-7836232_960_720.png">
+						<img width="100%" src="${post.imagePath }">
 					</div>
 					
 					<div>
@@ -55,7 +59,7 @@
 					</div>
 					
 					<div>
-						<b>doongie</b> 꽃 사진이 너무 예뻐요!!!
+						<b>${post.userId }</b> ${post.content }
 					</div>
 					
 					<!-- 댓글 박스 -->
@@ -73,6 +77,9 @@
 					</div>
 				
 				</div>
+				
+			</c:forEach>
+			
 			
 			</div>
 		
@@ -90,6 +97,8 @@
 			$("#inputBtn").on("click", function(){
 				
 				let content = $("#contentInput").val();
+				
+				let file = $("#fileInput")[0];
 
 				if(content == ""){
 					alert("내용을 입력하세요");
@@ -100,7 +109,7 @@
 					
 					type:"get"
 					, url:"/post/create"
-					, data:{"content":content}
+					, data:{"content":content, "file":file.files[0]}
 					, success:function(data){
 						if(data.result == "success"){
 							location.href="/post/list/view"

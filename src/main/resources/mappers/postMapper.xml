@@ -26,7 +26,7 @@
 	
 	</insert>
 	
-	<select id="selectAllPost" resultType="com.doongie.instagram.post.model.Post">
+	<select id="selectPostList" resultType="com.doongie.instagram.post.model.Post">
 	
 		SELECT * FROM
 			`post`
