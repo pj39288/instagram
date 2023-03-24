@@ -55,6 +55,14 @@
 	
 	
 	</select>
+	
+	<select id="selectUserById" parameterType="int" resultType="com.doongie.instagram.user.model.User">
+		SELECT * FROM
+			`user`
+		WHERE
+			`id` = #{id}
+	
+	</select>
 
 
 </mapper>

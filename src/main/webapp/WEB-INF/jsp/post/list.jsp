@@ -29,8 +29,9 @@
 			
 			<%-- content 입력화면 --%>
 			<div class="input-box">		
-				<textarea id="contentInput" rows="4" class="form-control"></textarea>	
+				<textarea rows="4" class="form-control" id="contentInput"></textarea>	
 				<div class="d-flex justify-content-between">
+					<i class="bi bi-image image-icon-size" id="imageIcon"></i>
 					<input type="file" id="fileInput">
 					<button type="button" id="inputBtn">업로드</button>				
 				</div>
@@ -55,11 +56,11 @@
 					</div>
 					
 					<div>
-						<i class="bi bi-suit-heart"></i> 좋아요 n개
+						<i class="bi bi-suit-heart" id="likeBtn"></i> 좋아요 n개
 					</div>
 					
 					<div>
-						<b>${post.userId }</b> ${post.content }
+						<b>${post.loginId }</b> ${post.content }
 					</div>
 					
 					<!-- 댓글 박스 -->
@@ -94,6 +95,48 @@
 	<script>
 		$(document).ready(function(){
 			
+			
+			$("likeBtn").on("click", function(){
+				
+				// let like = 1;
+				
+					$.ajax({
+								
+								type:"get"
+								, url:"/like"
+								, data:{"userId":userId, "postId":postId}
+								, success:function(data){
+									if(data.result == "success"){
+										// location.href="/post/list/view"
+										// 새로고침하면 페이지가 위로 말려올라가지않음
+										location.reload();
+									} else {
+										alert("내용 입력을 확인하세요");
+									}
+								}
+								, error:function(){
+									alert("게시 에러")
+								}
+								
+								
+							});
+				
+				
+			});
+			
+			
+			
+			$("#imageIcon").on("click", function(){
+				
+				//사진 아이콘을 선택할 때 file Input 동작을 수행한다.
+				$("#fileInput").click();
+				
+				
+				
+				
+				
+			});
+			
 			$("#inputBtn").on("click", function(){
 				
 				let content = $("#contentInput").val();
@@ -105,14 +148,31 @@
 					return;
 				}
 				
+				// if(file.files.length == 0){
+				// 	alert("파일을 입력하세요");
+				//	return;
+				// }
+				
+				
+				var formData = new FormData();
+				formData.append("content", content);
+				formData.append("file", file.files[0]);
+				
+				// api 호출하는 것
 				$.ajax({
 					
-					type:"get"
+					type:"post"
 					, url:"/post/create"
-					, data:{"content":content, "file":file.files[0]}
+					// , data:{"content":content, "file":file.files[0]}
+					, data:formData
+					, enctype:"multipart/form-data"
+					, processData:false
+					, contentType:false
 					, success:function(data){
 						if(data.result == "success"){
-							location.href="/post/list/view"
+							// location.href="/post/list/view"
+							// 새로고침하면 페이지가 위로 말려올라가지않음
+							location.reload();
 						} else {
 							alert("내용 입력을 확인하세요");
 						}
