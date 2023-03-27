@@ -56,7 +56,15 @@
 					</div>
 					
 					<div>
-						<i class="bi bi-suit-heart" id="likeBtn"></i> 좋아요 n개
+						<c:choose>
+							<c:when test="${post.like }">
+								<i class="bi bi-heart-fill text-danger"></i>
+							</c:when>
+							<c:otherwise>
+								<i class="bi bi-suit-heart like-icon" data-post-id="${post.id }"></i> 						
+							</c:otherwise>
+						</c:choose>
+						좋아요 ${post.likeCount }개
 					</div>
 					
 					<div>
@@ -95,16 +103,15 @@
 	<script>
 		$(document).ready(function(){
 			
-			
-			$("likeBtn").on("click", function(){
+			$(".like-icon").on("click", function(){
 				
-				// let like = 1;
-				
+					// 여러 게시글 중 내가 클릭한 특정 게시물의 post-id를 가져오는것
+					let postId = $(this).data("post-id");				
+						
 					$.ajax({
-								
 								type:"get"
 								, url:"/like"
-								, data:{"userId":userId, "postId":postId}
+								, data:{"postId":postId}
 								, success:function(data){
 									if(data.result == "success"){
 										// location.href="/post/list/view"
@@ -120,6 +127,14 @@
 								
 								
 							});
+				
+			});
+			
+			
+			$("likeBtn").on("click", function(){
+				
+				// let like = 1;
+				
 				
 				
 			});

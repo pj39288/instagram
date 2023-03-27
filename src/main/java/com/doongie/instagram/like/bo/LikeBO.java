@@ -16,5 +16,18 @@ public class LikeBO {
 		return likeDAO.insertLike(userId, postId);
 		
 	}
+	
+	public int getLikeCount(int postId) {
+		return likeDAO.selectCountLike(postId);
+	}
+	
+	public boolean isLike(int userId, int postId) {
+		
+		if(likeDAO.selectLike(userId, postId) == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

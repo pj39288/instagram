@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.doongie.instagram.like.bo.LikeBO;
@@ -21,7 +22,7 @@ public class LikeRestController {
 	@GetMapping("/like")
 	public Map<String, String> setLike(
 			// int userId
-			int postId
+			@RequestParam("postId") int postId
 			, HttpSession session) {
 		
 		int userId = (Integer) session.getAttribute("userId");
@@ -38,4 +39,23 @@ public class LikeRestController {
 		
 		return resultMap;
 	}
+	
+	//@GetMapping("/check")
+	//public Map<String, String> checkLike(
+		//	@RequestParam("postId") int postId
+			//, HttpSession session) {
+		//int userId = (Integer) session.getAttribute("userId");
+		
+		//int count = likeBO.isLike(userId, postId);
+		
+		//Map<String, String> resultMap = new HashMap<>();
+		
+		//if() {
+			//resultMap.put("is_duplicate", "true");
+		//}  else {
+			//resultMap.put("is_duplicate", "false");
+		//}
+		
+		//return resultMap;
+	//}
 }

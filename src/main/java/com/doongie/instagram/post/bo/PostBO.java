@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.doongie.instagram.common.FileManagerService;
+import com.doongie.instagram.like.bo.LikeBO;
 import com.doongie.instagram.post.dao.PostDAO;
 import com.doongie.instagram.post.model.Post;
 import com.doongie.instagram.post.model.PostDetail;
@@ -23,6 +24,9 @@ public class PostBO {
 	@Autowired
 	private UserBO userBO;
 	
+	@Autowired
+	private LikeBO likeBO;
+	
 	public int addPost(
 			//filemanager에서 필요하니 원래 없던 int userId를 넣음
 			int userId
@@ -37,7 +41,7 @@ public class PostBO {
 		
 	}
 	
-	public List<PostDetail> getPostList() {
+	public List<PostDetail> getPostList(int userId) {
 		
 		// 컨트롤러에서 원하는 데이터 형태를 만들어낸다. 
 		// 이게 BO의 역할
@@ -47,8 +51,11 @@ public class PostBO {
 		
 		for(Post post:postList) {
 			
-			
 			User user = userBO.getUserById(post.getUserId());
+			
+			int likeCount = likeBO.getLikeCount(post.getId());
+			
+			boolean isLike = likeBO.isLike(userId, post.getId());
 			
 			PostDetail postDetail = new PostDetail();
 			
@@ -57,6 +64,8 @@ public class PostBO {
 			postDetail.setImagePath(post.getImagePath());
 			postDetail.setUserId(post.getUserId());
 			postDetail.setLoginId(user.getName());
+			postDetail.setLikeCount(likeCount);
+			postDetail.setLike(isLike);
 			
 			postDetailList.add(postDetail);
 			

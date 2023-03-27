@@ -5,6 +5,8 @@ public class PostDetail {
 	private int id;
 	private int userId;
 	private String loginId;
+	private int likeCount;
+	private boolean isLike;
 	private String content;
 	private String imagePath;
 	
@@ -38,6 +40,22 @@ public class PostDetail {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+	public boolean isLike() {
+		return isLike;
+	}
+	public void setLike(boolean isLike) {
+		this.isLike = isLike;
+	}
+	
+	
+	
+	
 	
 	
 }

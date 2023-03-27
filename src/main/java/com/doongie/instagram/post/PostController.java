@@ -2,6 +2,8 @@ package com.doongie.instagram.post;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +21,11 @@ public class PostController {
 	private PostBO postBO;
 	
 	@GetMapping("/list/view")
-	public String instagramList(Model model) {
-				
-		List<PostDetail> postList = postBO.getPostList();
+	public String instagramList(Model model, HttpSession session) {
+		
+		int userId = (Integer) session.getAttribute("userId");
+		
+		List<PostDetail> postList = postBO.getPostList(userId);
 		
 		model.addAttribute("postList", postList);
 		

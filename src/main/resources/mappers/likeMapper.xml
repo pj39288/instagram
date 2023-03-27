@@ -21,5 +21,29 @@
 		)	
 	
 	</insert>
+	
+	<select id = "selectCountLike" parameterType="int" resultType="int">
+		
+		SELECT 
+			COUNT(1)
+		FROM
+			`like`
+		WHERE
+			`postId`= #{postId}
+	
+	</select>
+	
+	<select id = "selectLike" parameterType="map" resultType="int">
+	
+		SELECT
+			COUNT(1)
+		FROM
+			`like`
+		WHERE
+			`userId` = #{userId}
+		AND
+			`postId` = #{postId}
+	
+	</select>
 
 </mapper>
