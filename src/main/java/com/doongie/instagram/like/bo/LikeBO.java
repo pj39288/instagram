@@ -23,11 +23,17 @@ public class LikeBO {
 	
 	public boolean isLike(int userId, int postId) {
 		
-		if(likeDAO.selectLike(userId, postId) == 1) {
-			return true;
-		} else {
+		if(likeDAO.selectLike(userId, postId) == 0) {
 			return false;
+		} else {
+			return true;
 		}
+	}
+	
+	public int unlike(int userId, int postId) {
+		
+		return likeDAO.deleteLike(userId, postId);
+		
 	}
 
 }
