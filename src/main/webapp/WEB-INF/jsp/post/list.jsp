@@ -77,9 +77,18 @@
 					<!-- 댓글 박스 -->
 					<div>
 						<div>댓글</div>
-						
-						<div><b>hagulu</b>진짜 이쁘네</div>
-						<div><b>oss</b>뭐해</div>
+						<c:forEach var="comment" items="${commentList }">
+							<c:choose>
+								<c:when test="${post.Id eq comment.postId }">
+										<div><b>hagulu</b>진짜 이쁘네</div>
+										<div><b>oss</b>뭐해</div>
+										<div><b>${comment.userId }</b>${comment.content }</div>	
+								</c:when>
+								<c:otherwise>
+								
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
 						
 						<div class="d-flex">
 							<input type="text" class="form-control" id="commentInput${post.id }">

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.doongie.instagram.comment.bo.CommentBO;
 import com.doongie.instagram.post.bo.PostBO;
 import com.doongie.instagram.post.model.PostDetail;
 
@@ -19,7 +20,7 @@ public class PostController {
 	
 	@Autowired
 	private PostBO postBO;
-	
+		
 	@GetMapping("/list/view")
 	public String instagramList(Model model, HttpSession session) {
 		
@@ -31,6 +32,8 @@ public class PostController {
 		
 		return "/post/list";
 	}
+	
+	
 	
 
 }
