@@ -51,7 +51,7 @@
 				<div class="card">
 					<div class="d-flex justify-content-between">
 						<div>doongie</div>
-						<i class="bi bi-three-dots"></i>
+						<i class="bi bi-three-dots deleteBtn" data-post-id="${post.id }"></i>
 					</div>
 					
 					<div>
@@ -77,17 +77,10 @@
 					<!-- 댓글 박스 -->
 					<div>
 						<div>댓글</div>
-						<c:forEach var="comment" items="${commentList }">
-							<c:choose>
-								<c:when test="${post.Id eq comment.postId }">
-										<div><b>hagulu</b>진짜 이쁘네</div>
-										<div><b>oss</b>뭐해</div>
-										<div><b>${comment.userId }</b>${comment.content }</div>	
-								</c:when>
-								<c:otherwise>
+						<c:forEach var="comment" items="${post.commentList }">
+				
+							<div><b>${comment.userName }</b>${comment.content }</div>	
 								
-								</c:otherwise>
-							</c:choose>
 						</c:forEach>
 						
 						<div class="d-flex">
@@ -114,6 +107,26 @@
 	
 	<script>
 		$(document).ready(function(){
+			
+			$(".deleteBtn").on("click", function(){
+								
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"post"
+					, url:"post/delete"
+					, data:{"postId":postId}
+					, success:function(data){
+						location.reload();
+					}
+					, error:function(){
+						alert("삭제 에러");
+					}
+					
+					
+				});
+				
+			});
 			
 			$(".comment-btn").on("click", function(){
 				

@@ -33,7 +33,12 @@
 	<select id = "selectCommentList" parameterType="int" resultType="com.doongie.instagram.comment.model.Comment">
 	
 		SELECT 
-			`content`
+			`id`
+			,`userId`
+			, `postId`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
 		FROM
 			`comment`
 		WHERE

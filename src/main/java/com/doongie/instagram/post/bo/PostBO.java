@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.doongie.instagram.comment.bo.CommentBO;
+import com.doongie.instagram.comment.model.CommentDetail;
 import com.doongie.instagram.common.FileManagerService;
 import com.doongie.instagram.like.bo.LikeBO;
 import com.doongie.instagram.post.dao.PostDAO;
@@ -26,6 +28,9 @@ public class PostBO {
 	
 	@Autowired
 	private LikeBO likeBO;
+	
+	@Autowired
+	private CommentBO commentBO;
 	
 	public int addPost(
 			//filemanager에서 필요하니 원래 없던 int userId를 넣음
@@ -57,6 +62,9 @@ public class PostBO {
 			
 			boolean isLike = likeBO.isLike(userId, post.getId());
 			
+			// commentBO.showComment(userId);
+			List<CommentDetail> commentList = commentBO.showComment(post.getId());
+			
 			PostDetail postDetail = new PostDetail();
 			
 			postDetail.setId(post.getId());
@@ -66,6 +74,7 @@ public class PostBO {
 			postDetail.setLoginId(user.getName());
 			postDetail.setLikeCount(likeCount);
 			postDetail.setLike(isLike);
+			postDetail.setCommentList(commentList);
 			
 			postDetailList.add(postDetail);
 			
@@ -75,6 +84,13 @@ public class PostBO {
 		
 		
 		// return postDAO.selectPostList();
+	}
+	
+	
+	public int deletePost(int userId, int id) {
+		
+		return postDAO.deletePost(userId, id);
+		
 	}
 
 }

@@ -34,6 +34,17 @@
 			`id` DESC
 	
 	</select>
+	
+	<delete id="deletePost" parameterType="map">
+		DELETE FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+		AND
+			`id` = #{id}
+			
+	
+	</delete>
 
 
 

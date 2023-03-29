@@ -1,5 +1,9 @@
 package com.doongie.instagram.post.model;
 
+import java.util.List;
+
+import com.doongie.instagram.comment.model.CommentDetail;
+
 public class PostDetail {
 	
 	private int id;
@@ -9,6 +13,7 @@ public class PostDetail {
 	private boolean isLike;
 	private String content;
 	private String imagePath;
+	private List<CommentDetail> commentList;
 	
 	public int getId() {
 		return id;
@@ -52,6 +57,16 @@ public class PostDetail {
 	public void setLike(boolean isLike) {
 		this.isLike = isLike;
 	}
+	public List<CommentDetail> getCommentList() {
+		return commentList;
+	}
+	public void setCommentList(List<CommentDetail> commentList) {
+		this.commentList = commentList;
+	}
+
+	
+	
+	
 	
 	
 	
