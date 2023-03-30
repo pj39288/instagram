@@ -51,7 +51,9 @@
 				<div class="card">
 					<div class="d-flex justify-content-between">
 						<div>doongie</div>
-						<i class="bi bi-three-dots deleteBtn" data-post-id="${post.id }"></i>
+						<c:if test="${userId eq post.userId }">
+							<i class="bi bi-three-dots deleteBtn" data-post-id="${post.id }"></i>
+						</c:if>
 					</div>
 					
 					<div>
@@ -105,19 +107,57 @@
 		<c:import url="/WEB-INF/jsp/include/footer.jsp"></c:import>	
 	</div>
 	
+	
+	
+	
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+	  Launch demo modal
+	</button>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        ...
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	
+	
+	
 	<script>
 		$(document).ready(function(){
 			
 			$(".deleteBtn").on("click", function(){
-								
+												
 				let postId = $(this).data("post-id");
 				
 				$.ajax({
-					type:"post"
-					, url:"post/delete"
+					type:"get"
+					, url:"/post/delete"
 					, data:{"postId":postId}
 					, success:function(data){
-						location.reload();
+						if(data.result="success"){							
+							location.reload();
+						} else {
+							alert("삭제 실패");
+						}
+					
 					}
 					, error:function(){
 						alert("삭제 에러");

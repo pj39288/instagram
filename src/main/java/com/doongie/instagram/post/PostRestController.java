@@ -48,7 +48,7 @@ public class PostRestController {
 	
 	@GetMapping("/delete")
 	public Map<String, String> postRemove(	
-			int postId
+			@RequestParam("postId") int postId
 			, HttpSession session){
 		
 		int userId = (Integer) session.getAttribute("userId");

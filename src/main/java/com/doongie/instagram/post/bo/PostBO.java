@@ -89,6 +89,20 @@ public class PostBO {
 	
 	public int deletePost(int userId, int id) {
 		
+		// 이미지 도 삭제해야함
+		// 이미지 경로 받아서 파일매니저에 보낸것
+		// Post post = postDAO.selectPost(id);
+		// FileManagerService.removeFile(post.getImagePath());
+		
+		
+		// 댓글과 좋아요는 있을수도 없을수도 있기 때문에 그 결과값을 활용할 필요는 없다. 
+		// 댓글 삭제
+		commentBO.deleteCommentByPostId(id);
+		
+		// 좋아요 삭제
+		likeBO.deleteLikeByPostId(id);
+		
+		
 		return postDAO.deletePost(userId, id);
 		
 	}

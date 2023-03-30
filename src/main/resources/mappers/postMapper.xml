@@ -35,6 +35,18 @@
 	
 	</select>
 	
+	<select id="selectPost" parameterType="int" resultType="com.doongie.instagram.post.model.Post">
+		
+		SELECT * FROM
+			`post`
+		WHERE
+			`id` = #{id}
+		
+	
+	</select>
+	
+	
+	
 	<delete id="deletePost" parameterType="map">
 		DELETE FROM
 			`post`
